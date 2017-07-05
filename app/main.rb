@@ -1,23 +1,49 @@
 require_relative 'crawler'
+require 'date'
 
-links = Crawler.search("how to read a file ruby")
-htmls = Crawler.extractHTML(links)
+ini = DateTime.now.strftime('%Q').to_i
 
-h = htmls[0].to_s
-start = h.index('<pre>')
-finish = h.index('</pre>')
-v = []
-while start != nil && finish != nil
-  v.push h[start..finish + 5]
+crawler = Crawler.new"how to read a file"
+crawler.searchRequest()
+links = crawler.urls
 
-  h = h[finish + 5..h.size]
-
-  start = h.index('<pre>')
-  finish = h.index('</pre>')
-
+links.each do |link|
+  puts link[:link]
 end
 
-puts v[1]
+crawler.extractSourceCodeAndDoc
+
+f = DateTime.now.strftime('%Q').to_i
+
+puts (f - ini).to_s
+
+# crawler.htmlFiles.each do |file|
+#   puts file.html
+#   puts "---------------------------------------------"
+# end
+
+# v = []
+#
+# htmls.each do |html|
+#   h = html.to_s
+#   start = h.index('<pre>')
+#   finish = h.index('</pre>')
+#   while start != nil && finish != nil
+#     v.push h[start..finish + 5]
+#     h = h[finish + 5..h.size]
+#     start = h.index('<pre>')
+#     finish = h.index('</pre>')
+#   end
+# end
+#
+# f = DateTime.now.strftime('%Q').to_i
+#
+# puts (f - ini).to_s
+#
+# v.each do |a|
+#   puts a
+# end
+
 
 
 

@@ -3,34 +3,43 @@ require 'openssl'
 require 'net/http'
 require 'open-uri'
 require 'nokogiri'
+require_relative 'htmlcode'
+require_relative 'constants'
 
 
-module Crawler
+class Crawler
 
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
-  #faz a query no google e retorna os links da pesquisa
-  def self.search(query, opts = {})
+  attr_accessor :htmlFiles, :urls, :request
 
-    results = GoogleCustomSearchApi.search(query, opts)
-    links = []
-    results["items"].each do |item|
-      links.push({link:item["link"], title:item["title"], snippet:item["snippet"]})
-    end
-
-    return links
+  # class initializer
+  def initialize(request)
+    @htmlFiles = []
+    @urls = []
+    @request = request
   end
 
-  #extrai documentação e o código fonte da página a partir do html
-  def self.extractHTML(links)
+  # faz a query no google e retorna os links da pesquisa
+  def searchRequest(opts = {})
+    results = GoogleCustomSearchApi.search(@request, opts)
+    results["items"].each do |item|
+      @urls.push({link:item["link"], title:item["title"], snippet:item["snippet"]})
+    end
+  end
 
-    htmls = []
-
-    #links.each do |link|
-      puts links[0][:link]
-      doc = Nokogiri::HTML(open(links[0][:link]))
-      htmls.push(doc)
-    #end
-    return htmls
+  # extrai documentação e o código fonte da página a partir do html
+  def extractSourceCodeAndDoc
+    @urls.each do |link|
+      begin
+        code = HTMLCode.new
+        code.uri = link[:link]
+        code.html = Nokogiri::HTML(open(link[:link]))
+        @htmlFiles.push code
+      rescue
+        puts Constants.errorHTTP link[:link]
+      end
+    end
+    puts "Done"
   end
 end

@@ -4,7 +4,7 @@ require 'date'
 ini = DateTime.now.strftime('%Q').to_i
 
 crawler = Crawler.new"how to read a file"
-crawler.searchRequest()
+crawler.searchRequest
 links = crawler.urls
 
 links.each do |link|
@@ -12,6 +12,9 @@ links.each do |link|
 end
 
 crawler.extractSourceCodeAndDoc
+
+puts crawler.searchResult.searchCodes[1].sourceCode
+#puts crawler.htmlFiles[0].html
 
 f = DateTime.now.strftime('%Q').to_i
 

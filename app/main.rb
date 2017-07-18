@@ -12,9 +12,14 @@ links.each do |link|
 end
 
 crawler.extractSourceCodeAndDoc
+# crawler.htmlFiles.each do |html|
+# end
 
-puts crawler.searchResult.searchCodes[1].sourceCode
-#puts crawler.htmlFiles[0].html
+regex = /<(?!pre|noscript|code|script|div|td|g)\w+>[ \w\d.,'?()<>="\/:\-_]+/
+regex = /<pre>(?:<code>)?[\w\d\s.,'?()&&[^<]](?:<\/code>)?<\/pre>/
+puts crawler.htmlFiles[2].html.to_s
+
+#puts crawler.htmlFiles[2].html
 
 f = DateTime.now.strftime('%Q').to_i
 
@@ -23,28 +28,6 @@ puts (f - ini).to_s
 # crawler.htmlFiles.each do |file|
 #   puts file.html
 #   puts "---------------------------------------------"
-# end
-
-# v = []
-#
-# htmls.each do |html|
-#   h = html.to_s
-#   start = h.index('<pre>')
-#   finish = h.index('</pre>')
-#   while start != nil && finish != nil
-#     v.push h[start..finish + 5]
-#     h = h[finish + 5..h.size]
-#     start = h.index('<pre>')
-#     finish = h.index('</pre>')
-#   end
-# end
-#
-# f = DateTime.now.strftime('%Q').to_i
-#
-# puts (f - ini).to_s
-#
-# v.each do |a|
-#   puts a
 # end
 
 

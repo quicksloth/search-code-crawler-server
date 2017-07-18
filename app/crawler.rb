@@ -59,9 +59,11 @@ class Crawler
 
   def doCodeAndDocExtraction
     @htmlFiles.each do |html|
+
       h = html.html.to_s
       start = h.index('<pre>')
       finish = h.index('</pre>')
+
       while start != nil && finish != nil
 
         searchCode = SearchCode.new
@@ -70,8 +72,6 @@ class Crawler
 
         @searchResult.searchCodes.push searchCode
 
-        # puts h[start..finish + 5]
-        # puts '--------------------------'
         h = h[finish + 5..h.size]
         start = h.index('<pre>')
         finish = h.index('</pre>')

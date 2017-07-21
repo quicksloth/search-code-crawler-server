@@ -54,27 +54,30 @@ class Crawler
       end
     end
     puts "HTML extraction completed."
-    puts htmlFiles.class
   end
 
   def doCodeAndDocExtraction
     @htmlFiles.each do |html|
+      # extract codes by using the code regex
+      codes = html.html.to_s.scan(Constants::SourceCodeRegex)
+      puts codes.size
+      # extract doc and clean it by using the doc regex
+      doc = html.html.to_s.scan (Constants::DocRegex)
+      doc = doc.join"\n"
+      # remove tags
+      doc.to_s.gsub! Constants::DocCleanerRegex1, ""
+      # remove lines that starts with numbers
+      doc.to_s.gsub! Constants::DocCleanerRegex2, ""
+      # remove links
+      doc.to_s.gsub! Constants::DocCleanerRegex3, ""
 
-      h = html.html.to_s
-      start = h.index('<pre>')
-      finish = h.index('</pre>')
-
-      while start != nil && finish != nil
-
+      codes.each do |code|
         searchCode = SearchCode.new
-        searchCode.sourceCode = h[start..finish + 5]
         searchCode.url = html.uri
+        searchCode.documentation = doc
+        searchCode.sourceCode = code
 
         @searchResult.searchCodes.push searchCode
-
-        h = h[finish + 5..h.size]
-        start = h.index('<pre>')
-        finish = h.index('</pre>')
       end
     end
   end

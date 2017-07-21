@@ -1,7 +1,8 @@
 module Constants
 
   # Constants
-  SourceCodeRegex = /(?<=<pre><code>)(?:.[^<])*(?=<\/code><\/pre>)/m
+  SourceCodeRegex = /<pre[^>]*>(?:<code[^>]*>)?(?:[^<])*/m
+  DocRegex = /<(?!pre|noscript|code|script|td|div|g)\w+>[^\n]+/
   DocCleanerRegex1 = /<[^>]*>/
   DocCleanerRegex2 = /^\d[^\n]*/
   DocCleanerRegex3 = /^(https?[^\n]*)/

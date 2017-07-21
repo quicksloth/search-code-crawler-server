@@ -12,12 +12,18 @@ links.each do |link|
 end
 
 crawler.extractSourceCodeAndDoc
+puts "s " + crawler.searchResult.searchCodes.size.to_s
+crawler.searchResult.searchCodes.each do |s, index|
+  puts s.documentation
+  puts "-----------------------------"
+end
+
+#puts crawler.htmlFiles[1].html
+
+#puts crawler.searchResult.searchCodes.size
 # crawler.htmlFiles.each do |html|
 # end
 
-regex = /<(?!pre|noscript|code|script|div|td|g)\w+>[ \w\d.,'?()<>="\/:\-_]+/
-regex = /<pre>(?:<code>)?[\w\d\s.,'?()&&[^<]](?:<\/code>)?<\/pre>/
-puts crawler.htmlFiles[2].html.to_s
 
 #puts crawler.htmlFiles[2].html
 

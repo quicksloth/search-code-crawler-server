@@ -3,7 +3,7 @@ class SearchCode
 
   def initialize
     @sourceCode = ''
-    @documentation = []
+    @documentation = ''
     @url = ''
   end
 

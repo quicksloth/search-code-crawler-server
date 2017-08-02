@@ -3,6 +3,7 @@ require 'openssl'
 require 'net/http'
 require 'open-uri'
 require 'nokogiri'
+require 'timeout'
 
 require_relative 'htmlcode'
 require_relative 'constants'
@@ -44,14 +45,19 @@ class Crawler
 
   def extractHTML
     @urls.each do |link|
+      ini = DateTime.now.strftime('%Q').to_i
       begin
         code = HTMLCode.new
         code.uri = link[:link]
-        code.html = Nokogiri::HTML(open(link[:link]))
+        code.html = Timeout::timeout(1.2) do
+          Thread.new { Nokogiri::HTML(open(link[:link])) }.value
+        end
         @htmlFiles.push code
       rescue
         puts Constants.errorHTTP link[:link]
       end
+      fim = DateTime.now.strftime('%Q').to_i
+      puts "#{link[:link]}  Time: #{fim - ini}"
     end
     puts "HTML extraction completed."
   end
@@ -59,17 +65,13 @@ class Crawler
   def doCodeAndDocExtraction
     @htmlFiles.each do |html|
       # extract codes by using the code regex
-      codes = html.html.to_s.scan(Constants::SourceCodeRegex)
-      puts codes.size
-      # extract doc and clean it by using the doc regex
-      doc = html.html.to_s.scan (Constants::DocRegex)
-      doc = doc.join"\n"
-      # remove tags
-      doc.to_s.gsub! Constants::DocCleanerRegex1, ""
-      # remove lines that starts with numbers
-      doc.to_s.gsub! Constants::DocCleanerRegex2, ""
-      # remove links
-      doc.to_s.gsub! Constants::DocCleanerRegex3, ""
+      codes = html.html.to_s.scan(Constants::SOURCECODEREGEX)
+      doc = ''
+      if html.uri.include? "stackoverflow"
+        doc = extractSODoc(html.html)
+      else
+        doc = extractGenericDoc(html.html)
+      end
 
       codes.each do |code|
         searchCode = SearchCode.new
@@ -80,5 +82,35 @@ class Crawler
         @searchResult.searchCodes.push searchCode
       end
     end
+  end
+
+  def extractSODoc(html)
+    # extract doc and clean it by using the doc regex
+    doc = html.to_s.scan (Constants::STACKOVERFLOWREGEX)
+    doc = doc.join"\n"
+    # remove tags
+    doc.to_s.gsub! Constants::TAGREGEX, ""
+    # remove lines that starts with numbers
+    doc.to_s.gsub! Constants::NUMBERREGEX, ""
+    # remove links
+    doc.to_s.gsub! Constants::LINKREGEX, ""
+    # remove blank lines
+    doc.to_s.gsub! Constants::BLANKLINESREGEX, "\n"
+    return doc
+  end
+
+  def extractGenericDoc(html)
+    # extract doc and clean it by using the doc regex
+    doc = html.to_s.scan (Constants::GENERICREGEX)
+    doc = doc.join"\n"
+    # remove tags
+    doc.to_s.gsub! Constants::TAGREGEX, ""
+    # remove lines that starts with numbers
+    doc.to_s.gsub! Constants::NUMBERREGEX, ""
+    # remove links
+    doc.to_s.gsub! Constants::LINKREGEX, ""
+    # remove blank lines
+    doc.to_s.gsub! Constants::BLANKLINESREGEX, "\n"
+    return doc
   end
 end

@@ -45,6 +45,7 @@ class Crawler
   end
 
   def extractHTML
+    # access each url and extract it's html
     @urls.each do |link|
       ini = DateTime.now.strftime('%Q').to_i
       begin
@@ -66,25 +67,29 @@ class Crawler
   def doCodeAndDocExtraction
     @htmlFiles.each do |html|
 
-      html.html.to_s.scan(Constants::SOURCECODEREGEX).each do |code|
-        puts "----------------------------------------"
-        puts code
-      end
-      exit
-
+      # specific regex use
       if html.uri.include? "stackoverflow"
         doc = extractSODoc(html.html)
       else
         doc = extractGenericDoc(html.html)
       end
 
+      # populate new result object
       searchSite = SearchSite.new
       searchSite.url = html.uri
       searchSite.documentation = doc
+
       # extract codes by using the code regex
       searchSite.sourceCode = html.html.to_s.scan(Constants::SOURCECODEREGEX)
+      searchSite.sourceCode.each do |code|
+        code.gsub! Constants::TAGREGEX, ""
+      end
 
-      @searchResult.searchSites.push searchSite
+      # remove results with no code in it
+      searchSite.sourceCode.reject! {|x| x == ""}
+      if searchSite.sourceCode.size != 0
+        @searchResult.searchSites.push searchSite
+      end
     end
   end
 

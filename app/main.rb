@@ -20,7 +20,7 @@ crawler.searchResult.searchSites.each do |site|
 end
 
 File.open("teste.txt", "w"){ |file|
-  file.write h.to_json
+  file.write ""
 }
 
 

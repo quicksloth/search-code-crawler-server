@@ -136,6 +136,6 @@ class Crawler
       h[:searchResult].push ({ documentation: site.documentation,
                                sourceCode: site.sourceCode, url: site.url })
     end
-    json = h.to_json
+    @json = h.to_json
   end
 end

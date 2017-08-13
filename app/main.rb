@@ -13,14 +13,10 @@ f = DateTime.now.strftime('%Q').to_i
 
 crawler.printSearchInfo
 
-h = {searchResult: []}
-crawler.searchResult.searchSites.each do |site|
-  h[:searchResult].push ({ documentation: site.documentation,
-                           sourceCode: site.sourceCode, url: site.url })
-end
+crawler.generateJson
 
 File.open("teste.txt", "w"){ |file|
-  file.write ""
+  file.write crawler.json
 }
 
 

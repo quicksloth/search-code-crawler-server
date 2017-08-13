@@ -8,22 +8,38 @@ crawler = Crawler.new"how to read a file"
 crawler.searchRequest
 
 crawler.extractSourceCodeAndDoc
-puts "Code Qty: " + crawler.searchResult.searchCodes.size.to_s
-
 
 f = DateTime.now.strftime('%Q').to_i
 
+crawler.printSearchInfo
 
-hash = {}
-crawler.searchResult.instance_variables.each do |var|
-  hash[var] = crawler.searchResult.instance_variable_get var
-  puts hash[var][0].url
-
+h = {searchResult: []}
+crawler.searchResult.searchSites.each do |site|
+  h[:searchResult].push ({ documentation: site.documentation,
+                           sourceCode: site.sourceCode, url: site.url })
 end
 
-puts "---------"
-puts hash.to_json
-puts hash
+File.open("teste.txt", "w"){ |file|
+  file.write h.to_json
+}
+
+
+
+
+
+# json = {}
+#
+# crawler.searchResult.instance_variables.each do |var|
+#   json[var] = crawler.searchResult.instance_variable_get var
+#
+#   json[var].each do |v|
+#
+#   end
+# end
+# puts crawler.searchResult.instance_variables
+# puts "---------"
+# puts json.to_json
+# puts json
 
 
 puts (f - ini).to_s

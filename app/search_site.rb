@@ -1,8 +1,8 @@
-class SearchCode
+class SearchSite
   attr_accessor :sourceCode, :documentation, :url, :codeID
 
   def initialize
-    @sourceCode = ''
+    @sourceCode = []
     @documentation = ''
     @url = ''
   end

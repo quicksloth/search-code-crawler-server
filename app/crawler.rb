@@ -4,17 +4,18 @@ require 'net/http'
 require 'open-uri'
 require 'nokogiri'
 require 'timeout'
+require 'json'
 
 require_relative 'htmlcode'
 require_relative 'constants'
-require_relative 'search_code'
+require_relative 'search_site'
 require_relative 'search_result'
 
 class Crawler
 
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
-  attr_accessor :htmlFiles, :urls, :request, :searchResult
+  attr_accessor :htmlFiles, :urls, :request, :searchResult, :json
 
   # class initializer
   def initialize(request)
@@ -64,23 +65,26 @@ class Crawler
 
   def doCodeAndDocExtraction
     @htmlFiles.each do |html|
-      # extract codes by using the code regex
-      codes = html.html.to_s.scan(Constants::SOURCECODEREGEX)
-      doc = ''
+
+      html.html.to_s.scan(Constants::SOURCECODEREGEX).each do |code|
+        puts "----------------------------------------"
+        puts code
+      end
+      exit
+
       if html.uri.include? "stackoverflow"
         doc = extractSODoc(html.html)
       else
         doc = extractGenericDoc(html.html)
       end
 
-      codes.each do |code|
-        searchCode = SearchCode.new
-        searchCode.url = html.uri
-        searchCode.documentation = doc
-        searchCode.sourceCode = code
+      searchSite = SearchSite.new
+      searchSite.url = html.uri
+      searchSite.documentation = doc
+      # extract codes by using the code regex
+      searchSite.sourceCode = html.html.to_s.scan(Constants::SOURCECODEREGEX)
 
-        @searchResult.searchCodes.push searchCode
-      end
+      @searchResult.searchSites.push searchSite
     end
   end
 
@@ -112,5 +116,21 @@ class Crawler
     # remove blank lines
     doc.to_s.gsub! Constants::BLANKLINESREGEX, "\n"
     return doc
+  end
+
+  def printSearchInfo()
+    @searchResult.searchSites.each do |site|
+      puts "URL:" + site.url
+      puts "\tCode Qty: " + site.sourceCode.size.to_s
+    end
+  end
+
+  def generateJson
+    h = {searchResult: []}
+    @searchResult.searchSites.each do |site|
+      h[:searchResult].push ({ documentation: site.documentation,
+                               sourceCode: site.sourceCode, url: site.url })
+    end
+    json = h.to_json
   end
 end

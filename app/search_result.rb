@@ -1,9 +1,9 @@
-require_relative 'search_code'
+require_relative 'search_site'
 
 class SearchResult
-  attr_accessor :searchCodes, :clientID
+  attr_accessor :searchSites, :clientID
 
   def initialize
-    @searchCodes = []
+    @searchSites = []
   end
 end

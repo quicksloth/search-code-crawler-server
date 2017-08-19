@@ -4,7 +4,7 @@ require 'json'
 
 ini = DateTime.now.strftime('%Q').to_i
 
-crawler = Crawler.new"how to read a file"
+crawler = Crawler.new"bubble sort java site:stackoverflow.com"
 crawler.searchRequest
 
 crawler.extractSourceCodeAndDoc
@@ -15,7 +15,7 @@ crawler.printSearchInfo
 
 crawler.generateJson
 
-File.open("teste.txt", "w"){ |file|
+File.open("teste.json", "w"){ |file|
   file.write crawler.json
 }
 

@@ -35,33 +35,40 @@ class Crawler
 
   # extrai documentação e o código fonte da página a partir do html
   def extractSourceCodeAndDoc
-
     # Extract html from the urls
     extractHTML()
-
     # Extract Source and Doc
     doCodeAndDocExtraction()
-
   end
 
   def extractHTML
     # access each url and extract it's html
+    threads = []
     @urls.each do |link|
-      ini = DateTime.now.strftime('%Q').to_i
-      begin
-        code = HTMLCode.new
-        code.uri = link[:link]
-        code.html = Timeout::timeout(1.2) do
-          Thread.new { Nokogiri::HTML(open(link[:link])) }.value
+      threads << Thread.new{
+        begin
+          Timeout::timeout(Constants::TIMEOUT) do
+            code = HTMLCode.new
+            code.uri = link[:link]
+            code.html = Nokogiri::HTML(open(link[:link]))
+            Thread.current[:output] = code
+          end
+        rescue
+          puts Constants::errorHTTP link[:link]
+          Thread.current[:output] = nil
         end
-        @htmlFiles.push code
-      rescue
-        puts Constants.errorHTTP link[:link]
-      end
-      fim = DateTime.now.strftime('%Q').to_i
-      puts "#{link[:link]}  Time: #{fim - ini}"
+      }
     end
-    puts "HTML extraction completed."
+    ini = DateTime.now.strftime('%Q').to_i
+    begin
+      threads.each { |thread|
+        thread.join
+        unless thread[:output].nil?
+          @htmlFiles.push thread[:output]
+        end
+      }
+    end
+    puts "HTML extraction completed in " + ((DateTime.now.strftime('%Q').to_i - ini)/1000.0).to_s + " seconds."
   end
 
   def doCodeAndDocExtraction

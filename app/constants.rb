@@ -15,6 +15,8 @@ module Constants
   LINKREGEX = /(https[^\n\s]*)/
   BLANKLINESREGEX = /[\n]+/
 
+  TIMEOUT = 2
+
   # Functions
   def self.errorHTTP link
     puts "--------------------------------------------------------------"

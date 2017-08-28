@@ -6,10 +6,10 @@ require 'nokogiri'
 require 'timeout'
 require 'json'
 
-require_relative 'htmlcode'
-require_relative 'constants'
-require_relative 'search_site'
-require_relative 'search_result'
+require_relative '../model/htmlcode'
+require_relative '../helper/constants'
+require_relative '../model/search_site'
+require_relative '../model/search_result'
 
 class Crawler
 

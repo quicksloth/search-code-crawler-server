@@ -3,10 +3,10 @@ require 'date'
 require 'json'
 require 'sinatra'
 
-def everything
+def everything query, clientID
   ini = DateTime.now.strftime('%Q').to_i
 
-  crawler = Crawler.new"How to read a file"
+  crawler = Crawler.new query, clientID
   crawler.searchRequest
   crawler.extractSourceCodeAndDoc
 
@@ -24,6 +24,23 @@ def everything
 end
 
 get '/' do
+  "hello World"
+end
+
+get '/crawl' do
   headers ({"Content-Type" => "application/json"})
-  everything
+  body everything params["query"], params["id"]
+end
+
+before '/teste' do
+  request.body.rewind
+  @request_payload = JSON.parse request.body.read
+end
+
+get '/teste' do
+  #body (params["query"] + params["id"])
+end
+
+after '/teste' do
+  puts "after triggered"
 end

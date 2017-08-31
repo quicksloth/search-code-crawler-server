@@ -15,14 +15,15 @@ class Crawler
 
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
-  attr_accessor :htmlFiles, :urls, :request, :searchResult, :json
+  attr_accessor :htmlFiles, :urls, :request, :searchResult, :json, :clientID
 
   # class initializer
-  def initialize(request)
+  def initialize(request, clientID)
     @htmlFiles = []
     @urls = []
     @request = request
     @searchResult = SearchResult.new
+    @clientID = clientID
   end
 
   # faz a query no google e retorna os links da pesquisa
@@ -138,10 +139,11 @@ class Crawler
   end
 
   def generateJson
-    h = {clientID: "AHMAD123", searchResult: []}
+    h = {clientID: @clientID, query: @request, searchResult: []}
     @searchResult.searchSites.each do |site|
-      h[:searchResult].push ({ documentation: site.documentation,
-                               sourceCode: site.sourceCode, url: site.url })
+      h[:searchResult].push ({ url: site.url,
+                               documentation: site.documentation,
+                               sourceCode: site.sourceCode })
     end
     @json = h.to_json
   end

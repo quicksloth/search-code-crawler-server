@@ -60,7 +60,7 @@ after '/crawl' do
               'documentation': 'When you’re working with Python, you don’t need to import a library in order to read and write files. It’s handled natively in the language, albeit in a unique manner.',
               'url': 'http://www.pythonforbeginners.com/files/reading-and-writing-files-in-python',
               'sourceCode': [
-                  '''file_object = open(“filename”, “mode”) where\nfile_object is the variable to add the file object.''',
+                  '''file_object = open("filename", "mode") where\nfile_object is the variable to add the file object.''',
                   '''file = open("testfile.txt","w")\nfile.write("Hello World")\nfile.close()''',
               ],
           },

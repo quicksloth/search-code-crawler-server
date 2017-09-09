@@ -42,7 +42,7 @@ after '/crawl' do
   #data = everything(json["query"], json["id"])
 
   data = {
-      "requestID": request_body.get('requestID'),
+      "requestID": json["requestID"],
       'searchResult': [
           {
               'documentation': 'reading a file',

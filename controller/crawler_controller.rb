@@ -49,19 +49,12 @@ after '/crawl' do
           {
               'documentation': 'reading a file',
               'url': 'https://url.com',
-              'sourceCode': [
-                  '''import json\n''',
-                  '''import json\n\n\n\n\n\n\n\n\n\n\n\n\n''',
-                  '''import json\nfrom uuid import uuid4\n# you may also want''',
-                  '''with open(fname) as f:\n    content = f.readlines()\n# you may also want to remove whitespace characters like at the end of each line\ncontent = [x.strip() for x in content] \nprint(2)\n'''
-              ],
+              'sourceCode': ['import json\n'],
           },
           {
               'documentation': 'When you’re working with Python, you don’t need to import a library in order to read and write files. It’s handled natively in the language, albeit in a unique manner.',
               'url': 'http://www.pythonforbeginners.com/files/reading-and-writing-files-in-python',
-              'sourceCode': [
-                  '''file_object = open("filename", "mode") where\nfile_object is the variable to add the file object.''',
-                  '''file = open("testfile.txt","w")\nfile.write("Hello World")\nfile.close()''',
+              'sourceCode': ['import json\n'],
               ],
           },
       ],

@@ -52,3 +52,11 @@ after '/teste' do
   # Send the request
   http.request(request)
 end
+
+before '/' do
+  puts "Request received"
+end
+
+get '/' do
+  "Hello World"
+end

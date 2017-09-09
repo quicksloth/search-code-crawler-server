@@ -38,9 +38,11 @@ get '/crawl' do
 end
 
 after '/crawl' do
+
+  puts "after started"
   json = JSON.parse(@request_payload)
   #data = everything(json["query"], json["id"] )
-
+  puts @request_payload
   data = {
       "requestID": json["requestID"],
       'searchResult': [
@@ -64,17 +66,24 @@ after '/crawl' do
           },
       ],
   }
+  puts "dataset\n\n"
 
   # insert url here
   uri = URI.parse("http://0.0.0.0:6060/source-codes")
   # insert url here
+  puts "uri parse"
 
   header = {"Content-Type" => 'application/json'}
+  puts "hearder"
   http = Net::HTTP.new(uri.host, uri.port)
+  puts "http"
   request = Net::HTTP::Post.new(uri.request_uri, header)
+  puts "request"
   request.body = data
+  puts 'body'
   # Send the request
   http.request(request)
+  puts "http request"
 end
 
 before '/' do

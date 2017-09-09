@@ -49,13 +49,12 @@ after '/crawl' do
           {
               'documentation': 'reading a file',
               'url': 'https://url.com',
-              'sourceCode': ['import json\n'],
+              'sourceCode': ['import json\n']
           },
           {
               'documentation': 'When you’re working with Python, you don’t need to import a library in order to read and write files. It’s handled natively in the language, albeit in a unique manner.',
               'url': 'http://www.pythonforbeginners.com/files/reading-and-writing-files-in-python',
-              'sourceCode': ['import json\n'],
-              ],
+              'sourceCode': ['import json\n']
           },
       ],
   }

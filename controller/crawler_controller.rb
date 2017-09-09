@@ -80,6 +80,7 @@ after '/crawl' do
   request = Net::HTTP::Post.new(uri.request_uri, header)
   puts "request"
   request.body = (data.to_json).to_s
+  request.body.force_encoding("UTF-8")
   puts 'body'
   # Send the request
   http.request(request)

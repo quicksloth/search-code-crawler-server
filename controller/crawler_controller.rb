@@ -79,7 +79,7 @@ after '/crawl' do
   puts "http"
   request = Net::HTTP::Post.new(uri.request_uri, header)
   puts "request"
-  request.body = URI.encode_www_form(data)
+  request.body = data.to_s
   puts 'body'
   # Send the request
   http.request(request)

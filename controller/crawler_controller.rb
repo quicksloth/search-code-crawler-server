@@ -53,7 +53,7 @@ after '/crawl' do
                   '''import json\n''',
                   '''import json\n\n\n\n\n\n\n\n\n\n\n\n\n''',
                   '''import json\nfrom uuid import uuid4\n# you may also want''',
-                  '''with open(fname) as f:\n    content = f.readlines()\n# you may also want to remove whitespace characters like \'\\n\' at the end of each line\ncontent = [x.strip() for x in content] \nprint(2)\n'''
+                  '''with open(fname) as f:\n    content = f.readlines()\n# you may also want to remove whitespace characters like at the end of each line\ncontent = [x.strip() for x in content] \nprint(2)\n'''
               ],
           },
           {

@@ -1,5 +1,4 @@
 require_relative '../model/crawler'
-require_relative '../model/train'
 require 'date'
 require 'json'
 require 'sinatra'
@@ -81,21 +80,5 @@ get '/train-network' do
 end
 
 after '/train-network' do
-  startNode = "https://en.wikipedia.org/wiki/Python_(programming_language)"
-  train = Train.new( startNode, 5)
-  train.getTrainData
 
-  data = train.json
-
-  # insert url here
-  uri = URI.parse("http://0.0.0.0:6060/train-network")
-  # insert url here
-
-  header = {"Content-Type" => 'application/json'}
-  http = Net::HTTP.new(uri.host, uri.port)
-  request = Net::HTTP::Post.new(uri.request_uri, header)
-  request.body = (data.to_json).to_s
-  request.body.force_encoding("UTF-8")
-  # Send the request
-  http.request(request)
 end

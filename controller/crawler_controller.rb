@@ -68,17 +68,3 @@ after '/crawl' do
   # Send the request
   http.request(request)
 end
-
-before '/train-network' do
-  puts "Train request received"
-end
-
-get '/train-network' do
-  headers ({"Content-Type" => 'application/json'})
-  body @data
-  #"Train request received"
-end
-
-after '/train-network' do
-
-end

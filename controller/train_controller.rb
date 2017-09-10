@@ -16,7 +16,7 @@ uri = URI.parse("http://0.0.0.0:6060/train-network")
 header = {"Content-Type" => 'application/json'}
 http = Net::HTTP.new(uri.host, uri.port)
 request = Net::HTTP::Post.new(uri.request_uri, header)
-request.body = (data.to_json)
+request.body = (data)
 #request.body.force_encoding("UTF-8")
 request.body
 # Send the request

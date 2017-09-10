@@ -4,7 +4,6 @@ require 'open-uri'
 require 'nokogiri'
 require 'timeout'
 require 'json'
-require 'iconv'
 
 require_relative '../helper/constants'
 

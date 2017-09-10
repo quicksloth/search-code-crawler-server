@@ -36,7 +36,7 @@ class Train
 
     # extract and push docs
     doc = Constants::extractGenericDoc(html)
-    @docs << doc
+    @docs << doc.encode('UTF-8', :replace => '',:invalid => :replace, :undef => :replace)
 
     # recursive call
     if @urlsCount < @urlsLimit && urls.size != 0

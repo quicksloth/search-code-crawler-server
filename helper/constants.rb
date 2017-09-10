@@ -41,6 +41,8 @@ module Constants
     doc.to_s.gsub! Constants::LINKREGEX, ""
     # remove blank lines
     doc.to_s.gsub! Constants::BLANKLINESREGEX, "\n"
+    # remove special characters
+    doc.to_s.gsub! /(?![\w\d])*/, ""
     return doc
   end
 
@@ -56,6 +58,8 @@ module Constants
     doc.to_s.gsub! Constants::LINKREGEX, ""
     # remove blank lines
     doc.to_s.gsub! Constants::BLANKLINESREGEX, "\n"
+    # remove special characters
+    doc.to_s.gsub! /(?![\w\d])*/, ""
     return doc
   end
 

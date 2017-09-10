@@ -67,4 +67,6 @@ after '/crawl' do
   request.body.encode('UTF-8', :invalid => :replace, :undef => :replace)
   # Send the request
   http.request(request)
+
+  puts "POST done"
 end

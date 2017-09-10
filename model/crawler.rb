@@ -88,7 +88,8 @@ class Crawler
       # populate new result object
       searchSite = SearchSite.new
       searchSite.url = html.uri
-      searchSite.documentation = doc.encode('UTF-8', :invalid => :replace, :undef => :replace)
+      # searchSite.documentation = doc.encode('UTF-8', :invalid => :replace, :undef => :replace)
+      searchSite.documentation = "EMPTY DOC"
 
       # extract codes by using the code regex
       searchSite.sourceCode = html.html.to_s.scan(Constants::SOURCECODEREGEX)

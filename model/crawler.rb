@@ -113,7 +113,7 @@ class Crawler
   end
 
   def generateJson
-    h = {clientID: @clientID, query: @request, searchResult: []}
+    h = {requestID: @clientID, query: @request, searchResult: []}
     @searchResult.searchSites.each do |site|
       h[:searchResult].push ({ url: site.url,
                                documentation: site.documentation,

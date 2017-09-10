@@ -17,6 +17,9 @@ class Crawler
 
   attr_accessor :htmlFiles, :urls, :request, :searchResult, :json, :clientID
 
+  GoogleCustomSearchApi::GOOGLE_API_KEY = "AIzaSyCsZ0Lf9C5fm8AKcVVS1A7E--Po22nd9tg"
+  GoogleCustomSearchApi::GOOGLE_SEARCH_CX = "002462067752674001808:uy9ckkkd0js"
+
   # class initializer
   def initialize(request, clientID)
     @htmlFiles = []
@@ -77,9 +80,9 @@ class Crawler
 
       # specific regex use
       if html.uri.include? "stackoverflow"
-        doc = extractSODoc(html.html)
+        doc = Constants::extractSODoc(html.html)
       else
-        doc = extractGenericDoc(html.html)
+        doc = Constants::extractGenericDoc(html.html)
       end
 
       # populate new result object
@@ -101,36 +104,6 @@ class Crawler
     end
   end
 
-  def extractSODoc(html)
-    # extract doc and clean it by using the doc regex
-    doc = html.to_s.scan (Constants::STACKOVERFLOWREGEX)
-    doc = doc.join"\n"
-    # remove tags
-    doc.to_s.gsub! Constants::TAGREGEX, ""
-    # remove lines that starts with numbers
-    doc.to_s.gsub! Constants::NUMBERREGEX, ""
-    # remove links
-    doc.to_s.gsub! Constants::LINKREGEX, ""
-    # remove blank lines
-    doc.to_s.gsub! Constants::BLANKLINESREGEX, "\n"
-    return doc
-  end
-
-  def extractGenericDoc(html)
-    # extract doc and clean it by using the doc regex
-    doc = html.to_s.scan (Constants::GENERICREGEX)
-    doc = doc.join"\n"
-    # remove tags
-    doc.to_s.gsub! Constants::TAGREGEX, ""
-    # remove lines that starts with numbers
-    doc.to_s.gsub! Constants::NUMBERREGEX, ""
-    # remove links
-    doc.to_s.gsub! Constants::LINKREGEX, ""
-    # remove blank lines
-    doc.to_s.gsub! Constants::BLANKLINESREGEX, "\n"
-    return doc
-  end
-
   def printSearchInfo()
     @searchResult.searchSites.each do |site|
       puts "URL:" + site.url
@@ -147,4 +120,6 @@ class Crawler
     end
     @json = h.to_json
   end
+
 end
+

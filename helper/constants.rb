@@ -17,7 +17,7 @@ module Constants
   LINKREGEX = /(https[^\n\s]*)/
   BLANKLINESREGEX = /[\n]+/
   SPECIALCHARACTERSREGEX1 = /[^a-zA-Z\s\d\.()]+/
-  SPECIALCHARACTERSREGEX2 = /[\.():\-_\s]+/
+  SPECIALCHARACTERSREGEX2 = /[\W]+/
 
 
 

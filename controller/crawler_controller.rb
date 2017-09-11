@@ -4,11 +4,11 @@ require 'json'
 require 'sinatra'
 require 'nokogiri'
 
-def everything query, clientID
+def everything query, clientID, language
 
   ini = DateTime.now.strftime('%Q').to_i
 
-  crawler = Crawler.new query, clientID
+  crawler = Crawler.new query, clientID, language
   crawler.searchRequest
   crawler.extractSourceCodeAndDoc
 
@@ -39,7 +39,7 @@ after '/crawl' do
   puts "###############################################"
   puts "Crawler started"
   json = JSON.parse(@request_payload)
-  data = everything(json["query"], json["requestID"] )
+  data = everything(json["query"], json["requestID"], json["language"])
   puts @request_payload
   # data = {
   #     "requestID": json["requestID"],
@@ -58,7 +58,7 @@ after '/crawl' do
   # }
 
   # insert url here
-  uri = URI.parse("http://0.0.0.0:6060/source-codes")
+  uri = URI.parse("http://0.0.0.0:8080/source-codes")
   # insert url here
 
   header = {"Content-Type" => 'application/json'}

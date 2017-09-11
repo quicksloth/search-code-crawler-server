@@ -20,7 +20,7 @@ train.getTrainData
 data = train.json
 
 # insert url here
-uri = URI.parse("http://0.0.0.0:6060/train-network")
+uri = URI.parse("http://0.0.0.0:8080/train-network")
 
 # make post
 header = {"Content-Type" => 'application/json'}
@@ -33,5 +33,5 @@ response = http.request(request)
 puts "POST made: "
 puts "\t doc count: " + train.docs.count.to_s
 fim = DateTime.now.strftime('%Q').to_i
-puts "\t Total time: " + (fim - ini).to_s
+puts "\t Total time: " + ((fim - ini)/1000).to_s + " seconds."
 puts "###############################################"

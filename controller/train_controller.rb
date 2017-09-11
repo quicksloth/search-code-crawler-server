@@ -3,6 +3,7 @@ require 'date'
 require 'json'
 require 'nokogiri'
 
+puts "###############################################"
 startNode = "https://en.wikipedia.org/wiki/Python_(programming_language)"
 train = Train.new( startNode, 5)
 train.getTrainData
@@ -24,3 +25,4 @@ response = http.request(request)
 
 puts "POST made: "
 puts "\t doc count: " + train.docs.count.to_s
+puts "###############################################"

@@ -36,7 +36,8 @@ end
 
 after '/crawl' do
 
-  puts "after started"
+  puts "###############################################"
+  puts "Crawler started"
   json = JSON.parse(@request_payload)
   data = everything(json["query"], json["requestID"] )
   puts @request_payload
@@ -67,6 +68,6 @@ after '/crawl' do
   request.body.force_encoding("UTF-8")
   # Send the request
   http.request(request)
-
   puts "POST done"
+  puts "###############################################"
 end

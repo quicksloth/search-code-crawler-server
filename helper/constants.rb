@@ -62,7 +62,7 @@ module Constants
     # remove blank lines
     doc.to_s.gsub! Constants::BLANKLINESREGEX, "\n"
     # remove special characters
-    doc.to_s.gsub! Constants::SPECIALCHARACTERSREGEX, ""
+    doc.to_s.gsub! Constants::SPECIALCHARACTERSREGEX1, ""
     doc.to_s.gsub! Constants::SPECIALCHARACTERSREGEX2, " "
     return doc
   end

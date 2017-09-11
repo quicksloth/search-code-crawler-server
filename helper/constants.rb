@@ -16,6 +16,8 @@ module Constants
   NUMBERREGEX = /^\d[^\n]*/
   LINKREGEX = /(https[^\n\s]*)/
   BLANKLINESREGEX = /[\n]+/
+  SPECIALCHARACTERSREGEX1 = /[^a-zA-Z\s\d\.()]+/
+  SPECIALCHARACTERSREGEX2 = /[\.():\-_\s]+/
 
 
 
@@ -42,7 +44,8 @@ module Constants
     # remove blank lines
     doc.to_s.gsub! Constants::BLANKLINESREGEX, "\n"
     # remove special characters
-    #doc.to_s.gsub! /(?![\w\d]$)*/, ""
+    doc.to_s.gsub! Constants::SPECIALCHARACTERSREGEX1, ""
+    doc.to_s.gsub! Constants::SPECIALCHARACTERSREGEX2, " "
     return doc
   end
 
@@ -59,7 +62,8 @@ module Constants
     # remove blank lines
     doc.to_s.gsub! Constants::BLANKLINESREGEX, "\n"
     # remove special characters
-    doc.to_s.gsub! /\W+/, ""
+    doc.to_s.gsub! Constants::SPECIALCHARACTERSREGEX, ""
+    doc.to_s.gsub! Constants::SPECIALCHARACTERSREGEX2, " "
     return doc
   end
 

@@ -9,7 +9,7 @@ require_relative '../helper/constants'
 
 class Train
 
-  attr_accessor :nodes, :rootUrl, :docs, :urlsCount, :urlsLimit, :json
+  attr_accessor :nodes, :rootUrl, :docs, :urlsCount, :urlsLimit, :json, :accessedUrls
 
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
@@ -19,12 +19,16 @@ class Train
     @nodes = []
     @urlsLimit = urlsLimit
     @urlsCount = 0
+    @accessedUrls = []
   end
 
   def getTrainData url = @rootUrl
+
     print "#" + @urlsCount.to_s
     puts " Accessing: " + @nodes[0].to_s
+
     html = Nokogiri::HTML(open(url))
+    accessedUrls << url
     @urlsCount += 1
 
     # push urls into queue
@@ -39,8 +43,13 @@ class Train
     @docs << doc.encode('UTF-8', :replace => '',:invalid => :replace, :undef => :replace)
 
     # recursive call
+    nextUrl = @nodes.shift
+    while @accessedUrls.include?(nextUrl)
+      nextUrl = @nodes.shift
+    end
+
     if @urlsCount < @urlsLimit && urls.size != 0
-      getTrainData("https://en.wikipedia.org/" + @nodes.shift)
+      getTrainData("https://en.wikipedia.org/" + nextUrl)
     else
       generateJson
     end

@@ -15,23 +15,26 @@ class Crawler
 
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
-  attr_accessor :htmlFiles, :urls, :request, :searchResult, :json, :clientID
+  attr_accessor :htmlFiles, :urls, :request, :searchResult, :json, :clientID, :language
 
   GoogleCustomSearchApi::GOOGLE_API_KEY = "AIzaSyCsZ0Lf9C5fm8AKcVVS1A7E--Po22nd9tg"
   GoogleCustomSearchApi::GOOGLE_SEARCH_CX = "002462067752674001808:uy9ckkkd0js"
 
   # class initializer
-  def initialize(request, clientID)
+  def initialize(request, clientID, language)
     @htmlFiles = []
     @urls = []
     @request = request
     @searchResult = SearchResult.new
     @clientID = clientID
+    @language = language
   end
 
   # faz a query no google e retorna os links da pesquisa
   def searchRequest(opts = {})
-    results = GoogleCustomSearchApi.search(@request, opts)
+    query = @request.strip + " " + @language
+    puts "Query: " + query
+    results = GoogleCustomSearchApi.search(query, opts)
     results["items"].each do |item|
       @urls.push({link:item["link"], title:item["title"], snippet:item["snippet"]})
     end

@@ -20,7 +20,7 @@ train.getTrainData
 data = train.json
 
 # insert url here
-uri = URI.parse("http://0.0.0.0:8080/train-network")
+uri = URI.parse("http://0.0.0.0:10443/train-network")
 
 # make post
 header = {"Content-Type" => 'application/json'}

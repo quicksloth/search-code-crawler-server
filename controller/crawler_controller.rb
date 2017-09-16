@@ -65,7 +65,6 @@ after '/crawl' do
   http = Net::HTTP.new(uri.host, uri.port)
   request = Net::HTTP::Post.new(uri.request_uri, header)
   request.body = data
-  request.body.force_encoding("UTF-8")
   # Send the request
   http.request(request)
   puts "POST done"

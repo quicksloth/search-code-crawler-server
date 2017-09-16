@@ -121,7 +121,16 @@ class Crawler
                                documentation: site.documentation,
                                sourceCode: site.sourceCode })
     end
+
     @json = h.to_json
+    encoding_options = {
+        :invalid           => :replace,  # Replace invalid byte sequences
+        :undef             => :replace,  # Replace anything not defined in ASCII
+        :replace           => '',        # Use a blank for those replacements
+        :universal_newline => true       # Always break lines with \n
+    }
+    @json = @json.to_s.encode(Encoding.find('ASCII'), encoding_options)
+    @json = JSON.parse(@json)
 
     File.open("jsonfile.txt", "w") { |file| file.write(@json.to_s) }
   end

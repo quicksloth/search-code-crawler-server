@@ -122,6 +122,8 @@ class Crawler
                                sourceCode: site.sourceCode })
     end
     @json = h.to_json
+
+    File.open("jsonfile.txt", 'w') { |file| file.write(@json.to_s) }
   end
 
 end

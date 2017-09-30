@@ -130,7 +130,7 @@ class Crawler
         :replace           => '',        # Use a blank for those replacements
         :universal_newline => true       # Always break lines with \n
     }
-    @json = CGI.escapeHTML(@json.encode(Encoding.find('ASCII'), encoding_options))
+    @json = CGI.escapeHTML(@json.encode(Encoding.find('ASCII'), encoding_options)).to_s
     puts @json
   end
 

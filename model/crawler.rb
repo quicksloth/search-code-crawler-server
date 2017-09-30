@@ -123,6 +123,7 @@ class Crawler
     end
     puts "encoding1"
     @json = h.to_json
+    puts @json.class
     encoding_options = {
         :invalid           => :replace,  # Replace invalid byte sequences
         :undef             => :replace,  # Replace anything not defined in ASCII
@@ -135,9 +136,7 @@ class Crawler
     puts "encoding3"
     @json = @json.to_h
     puts @json.class
-    puts "encoding4"
-    @json = @json.to_json
-    puts @json.class
+
   end
 
 end

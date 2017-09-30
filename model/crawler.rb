@@ -5,7 +5,6 @@ require 'open-uri'
 require 'nokogiri'
 require 'timeout'
 require 'json'
-require 'cgi'
 
 require_relative '../model/htmlcode'
 require_relative '../helper/constants'
@@ -130,8 +129,7 @@ class Crawler
         :replace           => '',        # Use a blank for those replacements
         :universal_newline => true       # Always break lines with \n
     }
-    @json = CGI.escapeHTML(@json.encode(Encoding.find('ASCII'), encoding_options)).to_s
-    puts @json
+    @json = @json.encode(Encoding.find('ASCII'), encoding_options)
   end
 
 end

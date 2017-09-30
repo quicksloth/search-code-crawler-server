@@ -131,6 +131,7 @@ class Crawler
         :universal_newline => true       # Always break lines with \n
     }
     @json = CGI.escapeHTML(@json.encode(Encoding.find('ASCII'), encoding_options))
+    puts @json
   end
 
 end

@@ -41,21 +41,6 @@ after '/crawl' do
   json = JSON.parse(@request_payload)
   data = everything(json["query"], json["requestID"], json["language"])
   puts @request_payload
-  # data = {
-  #     "requestID": json["requestID"],
-  #     'searchResult': [
-  #         {
-  #             'documentation': 'reading a file',
-  #             'url': 'https://url.com',
-  #             'sourceCode': ['import json\n']
-  #         },
-  #         {
-  #             'documentation': 'When youre working with Python, you dont need to import a library in order to read and write files. It’s handled natively in the language, albeit in a unique manner.',
-  #             'url': 'http://www.pythonforbeginners.com/files/reading-and-writing-files-in-python',
-  #             'sourceCode': ['import json\n']
-  #         },
-  #     ],
-  # }
 
   # insert url here
   uri = URI.parse("http://0.0.0.0:10443/source-codes")

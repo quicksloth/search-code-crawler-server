@@ -97,6 +97,7 @@ class Crawler
       searchSite.sourceCode = html.html.to_s.scan(Constants::SOURCECODEREGEX)
       searchSite.sourceCode.each do |code|
         code.gsub! Constants::TAGREGEX, ""
+        code.gsub! Constants::BLANKLINESREGEX, "\n"
       end
 
       # remove results with no code in it

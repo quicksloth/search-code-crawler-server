@@ -122,7 +122,7 @@ class Crawler
                                sourceCode: site.sourceCode })
     end
     puts "encoding1"
-    @json = h.to_json
+    @json = JSON.parse(h)
     puts @json.class
     encoding_options = {
         :invalid           => :replace,  # Replace invalid byte sequences

@@ -121,7 +121,6 @@ class Crawler
                                documentation: site.documentation,
                                sourceCode: site.sourceCode })
     end
-    puts "encoding1"
     @json = h.to_json
     encoding_options = {
         :invalid           => :replace,  # Replace invalid byte sequences
@@ -129,10 +128,7 @@ class Crawler
         :replace           => '',        # Use a blank for those replacements
         :universal_newline => true       # Always break lines with \n
     }
-    puts "encoding2"
     @json = @json.encode(Encoding.find('ASCII'), encoding_options)
-    puts @json
-
   end
 
 end

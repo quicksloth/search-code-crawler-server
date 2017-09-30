@@ -133,7 +133,7 @@ class Crawler
     @json = @json.to_s.encode(Encoding.find('ASCII'), encoding_options)
     puts @json.class
     puts "encoding3"
-    @json = @json.to_hash
+    @json = @json.to_h
     puts @json.class
     puts "encoding4"
     @json = @json.to_json

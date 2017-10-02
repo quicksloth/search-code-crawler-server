@@ -22,7 +22,7 @@ module Constants
 
 
 
-  TIMEOUT = 30
+  TIMEOUT = 3
 
   # Functions
   def self.errorHTTP link

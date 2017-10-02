@@ -5,6 +5,7 @@ require 'open-uri'
 require 'nokogiri'
 require 'timeout'
 require 'json'
+require 'cgi'
 
 require_relative '../model/htmlcode'
 require_relative '../helper/constants'
@@ -95,10 +96,20 @@ class Crawler
 
       # extract codes by using the code regex
       searchSite.sourceCode = html.html.to_s.scan(Constants::SOURCECODEREGEX)
+
+      auxArray = []
       searchSite.sourceCode.each do |code|
-        code.gsub! Constants::TAGREGEX, ""
-        code.gsub! Constants::BLANKLINESREGEX, "\n"
+        aux = CGI.unescapeHTML(code)
+        aux.gsub! Constants::TAGREGEX, ""
+        aux.gsub! Constants::BLANKLINESREGEX, "\n"
+        if searchSite.url.include?("docs.python.org") || searchSite.url.include?("cloud.google.com")
+          aux.gsub! /\n[^>\.].*?\n/, ""
+          aux.gsub! />>> /, ""
+          aux.gsub! /\.\.\. /, ""
+        end
+        auxArray << aux
       end
+      searchSite.sourceCode = auxArray
 
       # remove results with no code in it
       searchSite.sourceCode.reject! {|x| x == ""}
@@ -129,8 +140,14 @@ class Crawler
         :replace           => '',        # Use a blank for those replacements
         :universal_newline => true       # Always break lines with \n
     }
-    @json = @json.encode(Encoding.find('ASCII'), encoding_options)
+    @json = CGI.unescapeHTML(@json.encode(Encoding.find('ASCII'), encoding_options))
   end
 
 end
+
+crawler = Crawler.new "read a file python docs", "123", ""
+crawler.searchRequest
+crawler.extractSourceCodeAndDoc
+crawler.generateJson
+puts crawler.json
 

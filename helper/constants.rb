@@ -1,16 +1,17 @@
 module Constants
 
   # Constants
-  SOURCECODEREGEX = /<pre[^>]*>(?:<code[^>]*>)?(?:[^<])*/m
+  #SOURCECODEREGEX = /<pre[^>]*>(?:<code[^>]*>)?(?:[^<])*/m
+  SOURCECODEREGEX = /<pre[^>]*>.*?<\/pre>/m
 
   # I'll leave this one here as a memory for all the suffering i've been through
   #Regex = /<(?!pre|noscript|code|script|td|div|g)\w+>[^\n]+/
 
-  STACKOVERFLOWREGEX = /(<p>.*?<\/p>)|(<h\d>.*?<\/h\d>)|(<span class="comment-copy">.*?<\/span>)/m
+  STACKOVERFLOWREGEX = /(<p [^>]*>.*?<\/p>)|(<h\d[^>]*>.*?<\/h\d>)|(<span class="comment-copy">.*?<\/span>)/m
 
   WIKIURLREGEX = /(?<=href="\/)wiki\/.*?(?=")/
 
-  GENERICREGEX = /(<p>.*?<\/p>)|(<h\d>.*?<\/h\d>)/m
+  GENERICREGEX = /(<p [^>]*>.*?<\/p>)|(<h\d[^>]*>.*?<\/h\d>)/m
 
   TAGREGEX = /<[^>]*>/
   NUMBERREGEX = /^\d[^\n]*/
@@ -21,7 +22,7 @@ module Constants
 
 
 
-  TIMEOUT = 2
+  TIMEOUT = 30
 
   # Functions
   def self.errorHTTP link

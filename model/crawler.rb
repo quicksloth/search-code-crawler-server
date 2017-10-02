@@ -145,9 +145,3 @@ class Crawler
 
 end
 
-crawler = Crawler.new "read a file python docs", "123", ""
-crawler.searchRequest
-crawler.extractSourceCodeAndDoc
-crawler.generateJson
-puts crawler.json
-

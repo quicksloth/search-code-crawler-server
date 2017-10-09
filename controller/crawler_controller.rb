@@ -49,6 +49,7 @@ after '/crawl' do
   header = {"Content-Type" => 'application/json'}
   http = Net::HTTP.new(uri.host, uri.port)
   request = Net::HTTP::Post.new(uri.request_uri, header)
+  puts data
   request.body = data
   # Send the request
   http.request(request)

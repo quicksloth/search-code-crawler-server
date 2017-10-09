@@ -9,7 +9,8 @@ require_relative '../helper/constants'
 
 class Train
 
-  attr_accessor :nodes, :rootUrl, :docs, :urlsCount, :urlsLimit, :json, :accessedUrls
+  attr_accessor :nodes, :rootUrl, :docs, :urlsCount, :urlsLimit, :json, :accessedUrls,
+                :accessedUrlsFileName, :queuedUrlsFileName
 
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
@@ -21,8 +22,13 @@ class Train
     @urlsCount = 0
     @accessedUrls = []
     @pushlimit = pushlimit
+
     @accessedUrlsFileName = "accessedurls.txt"
-    readAccessedUrls
+    @queuedUrlsFileName = "urlsQueue.txt"
+
+    readAccessedUrls()
+    readQueuedUrls()
+
   end
 
   def getTrainData url = @rootUrl
@@ -56,7 +62,7 @@ class Train
       generateJson
       #postData
       writeAccessedUrls
-      readAccessedUrls
+      writeQueuedUrls
     end
 
     if @urlsCount < @urlsLimit && urls.size != 0
@@ -65,7 +71,7 @@ class Train
       generateJson
       postData
       writeAccessedUrls
-      readAccessedUrls
+      writeQueuedUrls
     end
   end
 
@@ -93,9 +99,22 @@ class Train
     @accessedUrls = urlsText.split("\n")
   end
 
+  def readQueuedUrls
+    urlsText = File.read(@queuedUrlsFileName)
+    @nodes = urlsText.split("\n")
+  end
+
   def writeAccessedUrls
     File.open(@accessedUrlsFileName, 'w') { |f|
       @accessedUrls.each do |url|
+        f.puts url
+      end
+    }
+  end
+
+  def writeQueuedUrls
+    File.open(@queuedUrlsFileName, 'w') { |f|
+      @nodes.each do |url|
         f.puts url
       end
     }

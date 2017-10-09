@@ -23,8 +23,7 @@ train.getTrainData
 # make post
 
 
-puts "POST made: "
-puts "\t doc count: " + train.docs.count.to_s
+puts "Training data gattered: "
 fim = DateTime.now.strftime('%Q').to_i
 puts "\t Total time: " + ((fim - ini)/1000).to_s + " seconds."
 puts "###############################################"

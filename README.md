@@ -13,5 +13,6 @@ After installing ruby, run these commands:
 
 add your google api key on crawler_controller.rb:
 
-`GoogleCustomSearchApi::GOOGLE_API_KEY = "YOUR API KEY"
-   GoogleCustomSearchApi::GOOGLE_SEARCH_CX = "YOUR:CX"`
+`GoogleCustomSearchApi::GOOGLE_API_KEY = "YOUR API KEY"`
+
+`GoogleCustomSearchApi::GOOGLE_SEARCH_CX = "YOUR:CX"`

@@ -121,14 +121,3 @@ class Train
   end
 
 end
-
-
-
-# startNode = "https://en.wikipedia.org/wiki/Python_(programming_language)"
-# train = Train.new( startNode, 10)
-#
-# train.getTrainData
-#
-# puts train.json
-
-

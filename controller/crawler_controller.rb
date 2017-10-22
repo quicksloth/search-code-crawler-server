@@ -50,6 +50,7 @@ after '/crawl' do
   request = Net::HTTP::Post.new(uri.request_uri, header)
   request.body = data
   # Send the request
+  puts "aqui ---------------------------------------"
   http.request(request)
   puts "POST done"
   puts "###############################################"

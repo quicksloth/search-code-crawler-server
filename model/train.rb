@@ -58,9 +58,9 @@ class Train
     end
 
     if @urlsCount%@pushlimit == 0
-      puts "coc"
+      puts "Pushing Doc"
       generateJson
-      #postData
+      postData
       writeAccessedUrls
       writeQueuedUrls
     end

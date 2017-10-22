@@ -68,7 +68,7 @@ class Train
 
     if @urlsCount < @urlsLimit && urls.size != 0
       getTrainData("https://en.wikipedia.org/" + nextUrl)
-    else if pushed == false
+    elsif pushed == false
       generateJson
       postData
       writeAccessedUrls

@@ -40,7 +40,6 @@ after '/crawl' do
   puts "Crawler started"
   json = JSON.parse(@request_payload)
   data = everything(json["query"], json["requestID"], json["language"])
-  puts @request_payload
 
   # insert url here
   uri = URI.parse("http://0.0.0.0:10443/source-codes")

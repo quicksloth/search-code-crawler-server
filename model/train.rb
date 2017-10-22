@@ -56,18 +56,19 @@ class Train
     while @accessedUrls.include?("https://en.wikipedia.org/" + nextUrl)
       nextUrl = @nodes.shift
     end
-
+    pushed = false
     if @urlsCount%@pushlimit == 0
       puts "Pushing Doc"
       generateJson
       postData
       writeAccessedUrls
       writeQueuedUrls
+      pushed = true
     end
 
     if @urlsCount < @urlsLimit && urls.size != 0
       getTrainData("https://en.wikipedia.org/" + nextUrl)
-    else
+    else if pushed == false
       generateJson
       postData
       writeAccessedUrls

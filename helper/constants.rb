@@ -20,6 +20,7 @@ module Constants
   BLANKLINESREGEX = /[\n]+/
   SPECIALCHARACTERSREGEX1 = /[^a-zA-Z\s\d\.()]+/
   SPECIALCHARACTERSREGEX2 = /[\W]+/
+  EDITREGEX = /edit/
 
 
 
@@ -66,6 +67,8 @@ module Constants
     # remove special characters
     doc.to_s.gsub! Constants::SPECIALCHARACTERSREGEX1, ""
     doc.to_s.gsub! Constants::SPECIALCHARACTERSREGEX2, " "
+    # remove wiki edit
+    doc.to_s.gsub! Constants::EDITREGEX, ""
     return doc
   end
 

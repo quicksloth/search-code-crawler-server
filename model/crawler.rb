@@ -100,6 +100,7 @@ class Crawler
       auxArray = []
       searchSite.sourceCode.each do |code|
         aux = CGI.unescapeHTML(code)
+        aux.gsub! Constants::BRREGEX, "\n"
         aux.gsub! Constants::TAGREGEX, ""
         aux.gsub! Constants::BLANKLINESREGEX, "\n"
         if searchSite.url.include?("docs.python.org") || searchSite.url.include?("cloud.google.com")

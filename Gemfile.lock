@@ -1,0 +1,36 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
+    google_custom_search_api (2.0.0)
+      addressable
+      httparty
+    httparty (0.15.6)
+      multi_xml (>= 0.5.2)
+    mini_portile2 (2.3.0)
+    multi_xml (0.6.0)
+    mustermann (1.0.1)
+    nokogiri (1.8.1-x86-mingw32)
+      mini_portile2 (~> 2.3.0)
+    public_suffix (3.0.0)
+    rack (2.0.3)
+    rack-protection (2.0.0)
+      rack
+    sinatra (2.0.0)
+      mustermann (~> 1.0)
+      rack (~> 2.0)
+      rack-protection (= 2.0.0)
+      tilt (~> 2.0)
+    tilt (2.0.8)
+
+PLATFORMS
+  x86-mingw32
+
+DEPENDENCIES
+  google_custom_search_api
+  nokogiri
+  sinatra
+
+BUNDLED WITH
+   1.16.0

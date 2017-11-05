@@ -103,12 +103,13 @@ class Crawler
         aux.gsub! Constants::BRREGEX, "\n"
         aux.gsub! Constants::TAGREGEX, ""
         aux.gsub! Constants::BLANKLINESREGEX, "\n"
-        if searchSite.url.include?("docs.python.org") || searchSite.url.include?("cloud.google.com")
-          aux.gsub! /\n[^>\.].*?\n/, ""
-          aux.gsub! />>> /, ""
-          aux.gsub! /\.\.\. /, ""
+        aux.gsub! /\n[^>\.].*?\n/, ""
+        aux.gsub! />>> /, ""
+        aux.gsub! /\.\.\. /, ""
+
+        if aux.scan(/[^\n\s\d]/).size != 0
+          auxArray << aux
         end
-        auxArray << aux
       end
       searchSite.sourceCode = auxArray
 

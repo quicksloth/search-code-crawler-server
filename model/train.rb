@@ -85,7 +85,7 @@ class Train
   end
 
   def postData
-    uri = URI.parse("http://0.0.0.0:10443/train-network")
+    uri = URI.parse("https://quickslothrecommendationserver.herokuapp.com/train-network")
     data = @json
     header = {"Content-Type" => 'application/json'}
     http = Net::HTTP.new(uri.host, uri.port)

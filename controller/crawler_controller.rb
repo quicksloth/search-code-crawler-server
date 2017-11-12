@@ -4,6 +4,12 @@ require 'json'
 require 'sinatra'
 require 'nokogiri'
 
+get '/' do
+  text = "Hello world"
+  puts text
+  return text
+end
+
 def everything query, clientID, language
 
   ini = DateTime.now.strftime('%Q').to_i

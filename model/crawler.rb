@@ -103,7 +103,7 @@ class Crawler
         aux.gsub! Constants::BRREGEX, "\n"
         aux.gsub! Constants::TAGREGEX, ""
         aux.gsub! Constants::BLANKLINESREGEX, "\n"
-        aux.gsub! /\n[^>\.].*?\n/, ""
+        aux.gsub! /\n[^>\.].*?\n/, "\n"
         aux.gsub! />>> /, ""
         aux.gsub! /\.\.\. /, ""
 
@@ -146,4 +146,3 @@ class Crawler
   end
 
 end
-

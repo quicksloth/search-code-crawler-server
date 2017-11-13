@@ -107,11 +107,11 @@ class Crawler
           aux.gsub! /\n[^>\.].*?\n/, "\n"
           aux.gsub! />>> /, ""
           aux.gsub! /\.\.\. /, ""
-        end  
-
-        if aux.scan(/[^\n\s\d]/).size != 0
-          auxArray << aux
         end
+
+        #if aux.scan(/[^\n\s\d]/).size != 0
+        auxArray << aux
+        #end
       end
       searchSite.sourceCode = auxArray
 

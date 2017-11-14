@@ -109,7 +109,7 @@ class Crawler
           aux.gsub! /\.\.\. /, ""
         #end
 
-        if aux.scan(/[=\.+\-\/*()<>:"']/).size && aux.scan(/[a-zA-Z]/).size
+        if aux.scan(/[=\.+\-\/*()<>:"']/).size != 0 && aux.scan(/[a-zA-Z]/).size != 0
           auxArray << aux
         end
       end

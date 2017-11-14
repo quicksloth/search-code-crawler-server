@@ -2,7 +2,7 @@ module Constants
 
   # Constants
   #SOURCECODEREGEX = /<pre[^>]*>(?:<code[^>]*>)?(?:[^<])*/m
-  SOURCECODEREGEX = /<pre[^>]*>.*?<\/pre>/m
+  SOURCECODEREGEX = /<pre[^>]*>.*?(?=<\/pre>)/m
 
   # I'll leave this one here as a memory for all the suffering i've been through
   #Regex = /<(?!pre|noscript|code|script|td|div|g)\w+>[^\n]+/

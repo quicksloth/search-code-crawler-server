@@ -103,15 +103,15 @@ class Crawler
         aux.gsub! Constants::BRREGEX, "\n"
         aux.gsub! Constants::TAGREGEX, ""
         aux.gsub! Constants::BLANKLINESREGEX, "\n"
-        if searchSite.url.include?("docs.python.org") || searchSite.url.include?("cloud.google.com")
-          aux.gsub! /\n[^>\.].*?\n/, "\n"
+        #if searchSite.url.include?("docs.python.org") || searchSite.url.include?("cloud.google.com")
+          #aux.gsub! /\n[^>\.].*?\n/, "\n"
           aux.gsub! />>> /, ""
           aux.gsub! /\.\.\. /, ""
-        end
-
-        #if aux.scan(/[^\n\s\d]/).size != 0
-        auxArray << aux
         #end
+
+        if aux.scan(/[=\.+\-\/*()<>:"']/).size && aux.scan(/[a-zA-Z]/).size
+          auxArray << aux
+        end
       end
       searchSite.sourceCode = auxArray
 
@@ -148,3 +148,16 @@ class Crawler
   end
 
 end
+
+crawler = Crawler.new "merge sort", "clientID", "python"
+crawler.searchRequest
+crawler.extractSourceCodeAndDoc
+
+crawler.searchResult.searchSites.each do |site|
+  site.sourceCode.each do |code|
+    puts "---------------------"
+    puts site.url
+    puts code
+  end
+end
+

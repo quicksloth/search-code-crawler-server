@@ -48,7 +48,7 @@ after '/crawl' do
   data = everything(json["query"], json["requestID"], json["language"])
 
   # insert url here
-  uri = URI.parse("http://quickslothrecommendationserver.herokuapp.com/source-codes")
+  uri = URI.parse("http://0.0.0.0:10443/source-codes")
   # insert url here
 
   header = {"Content-Type" => 'application/json'}

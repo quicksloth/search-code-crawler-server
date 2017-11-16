@@ -48,8 +48,8 @@ after '/crawl' do
   data = everything(json["query"], json["requestID"], json["language"])
 
   # insert url here
-  uri = URI.parse("http://quickslothrecommendationserver.herokuapp.com/source-codes")
-  # insert url here
+  host = ENV["RECOMMENDATION_SERVER_HOST"] || "0.0.0.0:10443"
+  uri = URI.parse(host + "/source-codes")
 
   header = {"Content-Type" => 'application/json'}
   http = Net::HTTP.new(uri.host, uri.port)

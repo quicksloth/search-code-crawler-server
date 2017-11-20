@@ -84,7 +84,7 @@ class Train
     @json = h.to_json
   end
   def postData
-    host = ENV["RECOMMENDATION_SERVER_HOST"] || "0.0.0.0:10443"
+    host = ENV["RECOMMENDATION_SERVER_HOST"] || "http://0.0.0.0:10443"
     uri = URI.parse(host + "/train-network")
     data = @json
     header = {"Content-Type" => 'application/json'}

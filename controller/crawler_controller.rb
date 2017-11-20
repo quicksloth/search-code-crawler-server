@@ -48,7 +48,7 @@ after '/crawl' do
   data = everything(json["query"], json["requestID"], json["language"])
 
   # insert url here
-  host = ENV["RECOMMENDATION_SERVER_HOST"] || "0.0.0.0:10443"
+  host = ENV["RECOMMENDATION_SERVER_HOST"] || "http://0.0.0.0:10443"
   uri = URI.parse(host + "/source-codes")
 
   header = {"Content-Type" => 'application/json'}

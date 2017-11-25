@@ -13,7 +13,7 @@ module Constants
 
   GENERICREGEX = /(<p [^>]*>.*?<\/p>)|(<h\d[^>]*>.*?<\/h\d>)/m
 
-  TAGREGEX = /<[^>]*>/
+  TAGREGEX = /<.*?>/
   BRREGEX = /<br>/
   NUMBERREGEX = /^\d[^\n]*/
   LINKREGEX = /(https[^\n\s]*)/
